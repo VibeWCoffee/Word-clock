@@ -1,9 +1,8 @@
-from concurrent.futures import thread
+
 import datetime as dt
 import pytz as p
 import prettytable as pt
 import json
-import threading as th
 class Time():
     
     
@@ -59,11 +58,9 @@ class Time():
     
     # Getting the list of timezones and print it in a table
     def get_timezone_list(self) -> list:
-        
         return p.all_timezones
     
     def set_state(self, state: int):
-        
         self.state = state
         
 
