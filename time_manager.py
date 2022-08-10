@@ -1,6 +1,6 @@
 
-import datetime as dt
-import pytz as p
+from datetime import datetime as dt
+import pytz
 import prettytable as pt
 import json
 class Time():
@@ -16,15 +16,15 @@ class Time():
             timezone = self.config_timezone
             
         # Checking if timezone is valid
-        if timezone not in p.all_timezones:
+        if timezone not in pytz.all_timezones:
             # Exception might be temporary could replace with a menu to select timezone
             raise Exception('Cannot accept timezone: ' + str(timezone) + '\n' +
                             'config_timezone: ' + str(self.config_timezone))
-        elif timezone in p.all_timezones:
+        elif timezone in pytz.all_timezones:
             self.timezone = timezone
             print("timezone is valid")
 
-        
+
     # Creating a menu 
     def menu(self):
         
@@ -42,10 +42,10 @@ class Time():
     ### GETTERS && SETTERS ###
     
     # Return time in the format [HR][MIN][SEC][MIL]
-    def get_time(self) -> list:
+    def get_time(self):
         
         
-        return []
+        return dt.now(pytz.timezone(self.timezone))
 
     # Return date MM/DD/YYYY
     def get_date(self) -> list:
@@ -58,7 +58,7 @@ class Time():
     
     # Getting the list of timezones and print it in a table
     def get_timezone_list(self) -> list:
-        return p.all_timezones
+        return pytz.all_timezones
     
     def set_state(self, state: int):
         self.state = state

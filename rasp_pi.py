@@ -48,7 +48,7 @@ class MyLayout(GridLayout):
     def collect_label(self) -> Label:
         
         if  self.application_manager.get_state() == 0:
-            return Label(text="The Time is ")
+            return Label(text="The Time is "+ str(self.time_manager.get_time()))
         elif self.application_manager.get_state() == 1:
             return Label(text="The weather is ")
         elif self.application_manager.get_state() == 2:
