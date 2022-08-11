@@ -33,6 +33,7 @@ class Application_Manager():
 class MyLayout(GridLayout):
     
     time_manager = None
+    time_text = None
     application_manager = None
     
     def __init__(self, time_manager, application_manager, **kwargs):
@@ -43,14 +44,23 @@ class MyLayout(GridLayout):
         self.application_manager = application_manager
         
         self.cols = 2
-        self.add_widget(self.collect_label())
+        self.time_text = Label(text=self.collect_label())
+        self.add_widget(self.time_text)
         
-    def collect_label(self) -> Label:
+        Clock.schedule_interval(lambda dt: self.label_update(), 1)
+
+    def collect_label(self) -> str:
         
         if  self.application_manager.get_state() == 0:
-            return Label(text="The Time is "+ str(self.time_manager.get_time()))
+            return "Time is " + self.time_manager.get_time()
+            
         elif self.application_manager.get_state() == 1:
-            return Label(text="The weather is ")
+            return "The weather is "
         elif self.application_manager.get_state() == 2:
-            return Label(text="The date is")
+            return "The date is "
+    
+    def label_update(self) -> None:
+        self.time_text.text = self.collect_label()
+
+    
     

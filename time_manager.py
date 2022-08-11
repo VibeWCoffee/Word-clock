@@ -8,13 +8,15 @@ class Time():
     
     timezone: str = None
     config_timezone: str = json.load(open('config.json'))["timezone"]
+    
+    # Checks validity of the timezone on initialization
     def __init__(self, timezone=None) -> None:
         
         # Check if json_timezone is available and if timezone is NONE to 
         if timezone is None and self.config_timezone is not None:
             print("Setting timezone from config.json")
             timezone = self.config_timezone
-            
+              
         # Checking if timezone is valid
         if timezone not in pytz.all_timezones:
             # Exception might be temporary could replace with a menu to select timezone
@@ -24,33 +26,16 @@ class Time():
             self.timezone = timezone
             print("timezone is valid")
 
-
-    # Creating a menu 
-    def menu(self):
-        
-        # Menu wil be ran only if tz is not set in config
-        
-        # Creating a pretty table
-        
-        # Display pretty table
-        
-        # Ask for input
-        
-        # Save input in config
-        pass
-    
     ### GETTERS && SETTERS ###
     
     # Return time in the format [HR][MIN][SEC][MIL]
-    def get_time(self):
-        
-        
-        return dt.now(pytz.timezone(self.timezone))
+    def get_time(self) -> str:
+        return str(dt.now(pytz.timezone(self.timezone)))
 
+    # Return the date
     # Return date MM/DD/YYYY
     def get_date(self) -> list:
-        
-        return [self.month, self.day]
+        pass
     
     # Return self.time
     def get_timezone(self) -> str:
@@ -60,11 +45,10 @@ class Time():
     def get_timezone_list(self) -> list:
         return pytz.all_timezones
     
-    def set_state(self, state: int):
-        self.state = state
         
 
-
+class Weather():
+    pass
 
 
 
