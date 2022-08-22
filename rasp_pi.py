@@ -3,10 +3,11 @@ import kivy
 kivy.require('2.1.0')
 from kivy.app import App
 from kivy.uix.label import Label
+from kivy.uix.button import Button
 from kivy.clock import Clock
 from kivy.uix.gridlayout import GridLayout
 from kivy.lang import Builder
-
+from kivy.graphics import Color, Rectangle
 
 class Application(App):
     
@@ -33,7 +34,7 @@ class Application_Manager():
 class MyLayout(GridLayout):
     
     time_manager = None
-    time_text = None
+    time_label = None
     application_manager = None
     
     def __init__(self, time_manager, application_manager, **kwargs):
@@ -43,12 +44,27 @@ class MyLayout(GridLayout):
         self.time_manager = time_manager
         self.application_manager = application_manager
         
+        # Adding canvas instructions
+        with self.canvas.before:
+            Color(1, 1, 1, 1) # green; colors range from 0-1 instead of 0-255
+            for x in range(len(self.size)):
+                self.size[x] = self.size[x] + 3000
+                
+            self.rect = Rectangle(size=self.size, pos=self.pos)
+            
         self.cols = 2
-        self.time_text = Label(text=self.collect_label())
+        self.rows = 4
+        # Initializing GUI elements
+        self.time_text = Label(text=self.collect_label(), color=(0,0,0,1))
+        self.cycle_button = Button(text="Cycle")
+        
+        # Addind GUI elements to the layout
         self.add_widget(self.time_text)
+        self.add_widget(self.cycle_button)
         
         Clock.schedule_interval(lambda dt: self.label_update(), 1)
 
+        print(self.size, self.pos)
     def collect_label(self) -> str:
         
         if  self.application_manager.get_state() == 0:

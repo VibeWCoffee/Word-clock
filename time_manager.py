@@ -1,7 +1,6 @@
 
 from datetime import datetime as dt
 import pytz
-import prettytable as pt
 import json
 class Time():
     
@@ -11,21 +10,16 @@ class Time():
     
     # Checks validity of the timezone on initialization
     def __init__(self, timezone=None) -> None:
-        
-        # Check if json_timezone is available and if timezone is NONE to 
-        if timezone is None and self.config_timezone is not None:
-            print("Setting timezone from config.json")
-            timezone = self.config_timezone
-              
-        # Checking if timezone is valid
-        if timezone not in pytz.all_timezones:
-            # Exception might be temporary could replace with a menu to select timezone
-            raise Exception('Cannot accept timezone: ' + str(timezone) + '\n' +
-                            'config_timezone: ' + str(self.config_timezone))
-        elif timezone in pytz.all_timezones:
+       
+        # Timezone validity check
+        if timezone in pytz.all_timezones:
             self.timezone = timezone
-            print("timezone is valid")
-
+        elif self.config_timezone in pytz.all_timezones:
+            self.timezone = self.config_timezone
+        else:
+            raise Exception('Incorrect timezone')
+    
+            
     ### GETTERS && SETTERS ###
     
     # Return time in the format [HR][MIN][SEC][MIL]
