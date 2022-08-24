@@ -62,7 +62,7 @@ class MyLayout(GridLayout):
         self.add_widget(self.time_text)
         self.add_widget(self.cycle_button)
         
-        Clock.schedule_interval(lambda dt: self.label_update(), 1)
+        Clock.schedule_interval(lambda dt: self.label_update(), 0)
 
         print(self.size, self.pos)
     def collect_label(self) -> str:
